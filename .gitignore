@@ -9,3 +9,4 @@ onnxruntime-win-x64-gpu-1.15.1
 *.vcxproj.user
 bin
 obj
+openvino

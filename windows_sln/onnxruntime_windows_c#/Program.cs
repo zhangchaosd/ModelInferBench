@@ -17,7 +17,7 @@ namespace OnnxRuntimeCSharpExample
         static void Main(string[] args)
         {
 
-            int batch_size = 4;
+            int batch_size = 1;
             Device device = Device.Onnxruntime_cpu;
             string modelPath = "model.onnx";
 

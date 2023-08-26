@@ -16,6 +16,8 @@ My PC:
 
 - System: Windows 11 Pro 22H2 22621.2215
 
+- Python 3.11.4
+
 My Mac:
 
 - MacBook Pro 16-inch, 2021, A2485
@@ -44,9 +46,12 @@ Infer 20 times, and take the average of the last 10 times.
 | C# onnxruntime cuda | 7 ms | 17 ms | 427 ms|
 | C# DirectML A770 | 9 ms | 19 ms | 485 ms|
 | C# DirectML 1070Ti | 12 ms | 31 ms | 812 ms|
-| OpenVINO CPU | 11 ms | 25 ms | 1184 ms |  |
-| OpenVINO A770 | 6 ms | 7 ms | 75 ms | 512 ms |
-| OpenVINO 1070Ti | 49 ms | * | * | * |
+| Python OpenVINO CPU | 11 ms | 25 ms | 1184 ms |  |
+| Python OpenVINO A770 | 6 ms | 7 ms | 75 ms | 512 ms |
+| Python OpenVINO 1070Ti | 49 ms | * | * | * |
+| C++ OpenVINO CPU | 10 ms | 26 ms | * | * |
+| C++ OpenVINO A770 | 7 ms | 10 ms | 870 ms | * |
+| C++ OpenVINO 1070Ti | 49 ms | * | * | * |
 
 | MacBook/batch_size | 1 | 4 |
 |:------:|:----:|:------:|
