@@ -46,16 +46,16 @@ Infer 20 times, and take the average of the last 10 times.
 | C# onnxruntime cuda | 7 ms | 17 ms | 427 ms|
 | C# DirectML A770 | 9 ms | 19 ms | 485 ms|
 | C# DirectML 1070Ti | 12 ms | 31 ms | 812 ms|
-| Python OpenVINO CPU | 11 ms | 25 ms | 1184 ms |  |
-| Python OpenVINO A770 | 6 ms | 7 ms | 75 ms | 512 ms |
-| Python OpenVINO 1070Ti | 49 ms | * | * | * |
-| C++ OpenVINO CPU | 10 ms | 26 ms | * | * |
-| C++ OpenVINO A770 | 7 ms | 10 ms | 870 ms | * |
+| Python OpenVINO CPU | 11 ms | 29 ms | * |  |
+| Python OpenVINO A770 | 10 ms | 15 ms | 919 ms |  |
+| Python OpenVINO 1070Ti | 49 ms | * | * |  |
+| C++ OpenVINO CPU | 10 ms | 26 ms | * |  |
+| C++ OpenVINO A770 | 7 ms | 10 ms | 870 ms |  |
 
 | MacBook/batch_size | 1 | 4 |
-|:------:|:----:|:------:|
-| PyTorch cpu | 887 ms | 1207 ms |
-| PyTorch mps | 37 ms | 39 ms |
+|:------|:----:|:------:|
+| Python PyTorch cpu | 887 ms | 1207 ms |
+| Python PyTorch mps | 37 ms | 39 ms |
 | Python onnxruntime cpu | 59 ms | 208 ms |
 
 ## Attention

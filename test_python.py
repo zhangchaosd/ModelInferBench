@@ -99,7 +99,7 @@ def test_OpenVINO():
         return -1
 
     # Step 4. Apply preprocessing
-    ppp = PrePostProcessor(model)
+    # ppp = PrePostProcessor(model)
 
     input_tensor = np.random.rand(*input_size).astype(np.float32)
 
@@ -107,31 +107,25 @@ def test_OpenVINO():
     # - input() provides information about a single model input
     # - reuse precision and shape from already available `input_tensor`
     # - layout of data is 'NHWC'
-    ppp.input().tensor() \
-        .set_shape(input_size) \
-        .set_element_type(Type.u8) \
-        .set_layout(Layout('NCHW'))  # noqa: ECE001, N400
+    # ppp.input().tensor() \
+    #     .set_shape(input_size) \
+    #     .set_element_type(Type.f32) \
+    #     .set_layout(Layout('NCHW'))  # noqa: ECE001, N400
 
     # 2) Adding explicit preprocessing steps:
     # - apply linear resize from tensor spatial dims to model spatial dims
-    ppp.input().preprocess().resize(ResizeAlgorithm.RESIZE_LINEAR)
+    # ppp.input().preprocess().resize(ResizeAlgorithm.RESIZE_LINEAR)
 
     # 3) Here we suppose model has 'NCHW' layout for input
-    ppp.input().model().set_layout(Layout('NCHW'))
+    # ppp.input().model().set_layout(Layout('NCHW'))
 
     # 4) Set output tensor information:
     # - precision of tensor is supposed to be 'f32'
-    ppp.output().tensor().set_element_type(Type.f32)
+    # ppp.output().tensor().set_element_type(Type.f32)
 
     # 5) Apply preprocessing modifying the original 'model'
-    model = ppp.build()
-
-    # Step 5. Loading model to the device
-    print('Loading the model to the plugin')
+    # model = ppp.build()
     compiled_model = core.compile_model(model, device_name)
-
-    # Step 6. Create infer request and do inference synchronously
-    print('Starting inference in synchronous mode')
 
     total_time = 0.0
     epoch = 20
