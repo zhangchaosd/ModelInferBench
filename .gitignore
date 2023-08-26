@@ -1,2 +1,8 @@
 *.onnx
 __pycache__
+
+.vs
+x64
+x86
+onnxruntime-win-x64-1.15.1
+*.vcxproj.user

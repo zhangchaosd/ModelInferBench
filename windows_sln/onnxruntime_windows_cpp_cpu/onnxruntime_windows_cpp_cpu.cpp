@@ -33,7 +33,7 @@ int main()
     Ort::Env env;
 
     // Initialize session
-    Ort::Session onnx_session(env, L"model.onnx", Ort::SessionOptions{ nullptr });
+    Ort::Session onnx_session(env, L"../../model.onnx", Ort::SessionOptions{ nullptr });
 
     // Create input tensor objects (This might differ based on your model)
 
