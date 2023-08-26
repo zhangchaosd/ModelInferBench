@@ -5,4 +5,5 @@ __pycache__
 x64
 x86
 onnxruntime-win-x64-1.15.1
+onnxruntime-win-x64-gpu-1.15.1
 *.vcxproj.user

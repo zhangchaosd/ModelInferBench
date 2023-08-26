@@ -1,4 +1,4 @@
-// onnxruntime_windows_cpp_cpu.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// onnxruntime_windows_cpp_gpu.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -10,12 +10,10 @@ class Timer {
 public:
     Timer() : start_time(std::chrono::high_resolution_clock::now()) {}
 
-    // 重置计时器
     void reset() {
         start_time = std::chrono::high_resolution_clock::now();
     }
 
-    // 获取经过的毫秒数（不保留小数）
     long long elapsedMilliseconds() {
         auto end_time = std::chrono::high_resolution_clock::now();
         return std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
@@ -29,13 +27,22 @@ int main()
 {
     std::cout << "Hello World!\n";
 
-    const int64_t batch_size = 1;
+    auto providers = Ort::GetAvailableProviders();
+    for (auto provider : providers) {
+        std::cout << provider << std::endl;
+    }
+
+    const int64_t batch_size = 4;
 
     // Initialize ONNX Runtime
     Ort::Env env;
 
+    Ort::SessionOptions session_options;
+    //OrtCUDAProviderOptions options;
+    session_options.AppendExecutionProvider_CUDA(OrtCUDAProviderOptions{});
+
     // Initialize session
-    Ort::Session onnx_session(env, L"../../model.onnx", Ort::SessionOptions{ nullptr });
+    Ort::Session onnx_session(env, L"../../model.onnx", session_options);
 
     // Create input tensor objects (This might differ based on your model)
 
@@ -61,7 +68,7 @@ int main()
             total_time += elapsed_time;
         }
     }
-    printf("Running done");
+    printf("Running done\n");
     std::cout << "Average elapsed time: " << total_time / 10 << " ms" << std::endl;
     int a;
     std::cin >> a;
