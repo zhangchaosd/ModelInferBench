@@ -46,12 +46,11 @@ int main(int argc, char* argv[]) {
     std::cout << ov::get_openvino_version() << std::endl;
 
     const std::string model_path = "../../model.onnx";
-    size_t batch_size = 512;
+    size_t batch_size = 1;
     size_t input_width = 224;
     size_t input_height = 224;
-    //const std::string device_name = "CPU";
-    const std::string device_name = "GPU.0";
-    //const std::string device_name = "GPU.1";
+    const std::string device_name = "CPU";
+    // const std::string device_name = "GPU.0";
     const int shape[] = { batch_size, 3, input_height, input_width };
 
     // -----------------------------------------------------------------------------------------------------

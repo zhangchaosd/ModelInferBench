@@ -152,22 +152,22 @@ def test_OpenVINO():
     #https://docs.openvino.ai/2023.0/openvino_inference_engine_tools_benchmark_tool_README.html
     return 0
 
-# export_onnx(model)
+export_onnx(model)
 
-# devices = ["cpu"]
-# if torch.cuda.is_available():
-    # devices.append("cuda")
-# if torch.backends.mps.is_available():
-    # devices.append("mps")
-# for device in devices:
-    # test(model, device)
+devices = ["cpu"]
+if torch.cuda.is_available():
+    devices.append("cuda")
+if torch.backends.mps.is_available():
+    devices.append("mps")
+for device in devices:
+    test(model, device)
 
-# available_providers = ort.get_available_providers()
-# for provider in available_providers:
-    # test_onnxruntime(provider)
+available_providers = ort.get_available_providers()
+for provider in available_providers:
+    test_onnxruntime(provider)
 
 test_OpenVINO()
 
-# print("Results:")
-# for result in results:
-    # print(result)
+print("Results:")
+for result in results:
+    print(result)

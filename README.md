@@ -35,9 +35,9 @@ Infer 20 times, and take the average of the last 10 times.
 (ms)
 
 | PC/batch_size | 1 | 4 | 128| 512 |
-|:------:|:----:|:------:|:-:| :-: |
-| PyTorch cpu | 172 ms | 514 ms | ms |
-| PyTorch cuda | 11 ms | 23 ms | oom |
+|:------|:----:|:------:|:-:| :-: |
+| Python PyTorch cpu | 172 ms | 514 ms | ms |
+| Python PyTorch cuda | 11 ms | 23 ms | oom |
 | Python onnxruntime cpu | 12 ms | 30 ms | ms |
 | Python onnxruntime cuda | 8 ms | 18 ms | 430 ms |
 | C++ onnxruntime cpu | 10 ms | 34 ms | 3800 ms |
@@ -51,7 +51,6 @@ Infer 20 times, and take the average of the last 10 times.
 | Python OpenVINO 1070Ti | 49 ms | * | * | * |
 | C++ OpenVINO CPU | 10 ms | 26 ms | * | * |
 | C++ OpenVINO A770 | 7 ms | 10 ms | 870 ms | * |
-| C++ OpenVINO 1070Ti | 49 ms | * | * | * |
 
 | MacBook/batch_size | 1 | 4 |
 |:------:|:----:|:------:|
@@ -72,6 +71,8 @@ python test_python.py
 
 ### Windows/C++
 
+onnxruntime:
+
 1 Download onnxruntime release from https://github.com/microsoft/onnxruntime/releases/tag/v1.15.1
 
 2 Download `onnxruntime-win-x64-1.15.1.zip` or `onnxruntime-win-x64-gpu-1.15.1.zip`
@@ -83,8 +84,19 @@ python test_python.py
 - Properties -> Linker -> Input -> Additional Dependencies
 - Build Events -> Post-Build Event -> Command Line
 
+OpenVINO:
+
+1 Download from https://www.intel.cn/content/www/cn/zh/developer/tools/openvino-toolkit/overview.html and unzip.
+
+2 Create a new folder named `openvino` in `windows_sln\openvino_windows_cpp\`.
+
+3 Copy `openvino_toolkit\runtime\lib` and `openvino_toolkit\runtime\include` to `windows_sln\openvino_windows_cpp\openvino`
+
+4 Build project.
+
+5 Copy `openvino_toolkit\runtime\bin\intel64\Release\*.dll` and `openvino_toolkit\runtime\3rdparty\tbb\bin\*.dll` to the output path `windows_sln\x64\Release\`.
+
 ### Windows/C#
 
-Just install one of the following NuGet Package `Microsoft.ML.OnnxRuntime.DirectML`/`Microsoft.ML.OnnxRuntime`/`Microsoft.ML.OnnxRuntime.Gpu`
-
+Just install one of the following NuGet Package `Microsoft.ML.OnnxRuntime.DirectML`, `Microsoft.ML.OnnxRuntime`, `Microsoft.ML.OnnxRuntime.Gpu`
 
