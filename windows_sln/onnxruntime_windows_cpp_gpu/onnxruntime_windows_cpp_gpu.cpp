@@ -32,7 +32,8 @@ int main()
         std::cout << provider << std::endl;
     }
 
-    const int64_t batch_size = 4;
+    const int64_t batch_size = 128;
+    std::cout << "batch_size:" << batch_size << std::endl;
 
     // Initialize ONNX Runtime
     Ort::Env env;

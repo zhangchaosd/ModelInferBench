@@ -7,7 +7,7 @@ import torch
 import torchvision
 
 onnx_path = "model.onnx"
-batch_size = 4
+batch_size = 128
 input_size = (batch_size, 3, 224, 224)
 # model = torchvision.models.efficientnet_v2_l()
 model = torchvision.models.efficientnet_b4()
@@ -70,6 +70,10 @@ def test_onnxruntime(provider):
     result = f"Onnxruntime: {provider}. Average running time in last 10 epochs: {total_time:.0f} ms"
     print(result)
     results.append(result)
+
+def test_onnxruntime_directml():
+    # pip install onnxruntime-directml
+    pass
 
 
 export_onnx(model)

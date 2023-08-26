@@ -29,7 +29,7 @@ int main()
 {
     std::cout << "Hello World!\n";
 
-    const int64_t batch_size = 1;
+    const int64_t batch_size = 128;
 
     // Initialize ONNX Runtime
     Ort::Env env;
