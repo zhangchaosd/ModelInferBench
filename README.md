@@ -77,6 +77,6 @@ python test_python.py
 
 ### Windows/C#
 
-Just install the NuGet Package Microsoft.ML.OnnxRuntime.DirectML/Microsoft.ML.OnnxRuntime/Microsoft.ML.OnnxRuntime.Gpu
+Just install one of the following NuGet Package `Microsoft.ML.OnnxRuntime.DirectML`/`Microsoft.ML.OnnxRuntime`/`Microsoft.ML.OnnxRuntime.Gpu`
 
 
