@@ -29,6 +29,8 @@ int main()
 {
     std::cout << "Hello World!\n";
 
+    const int64_t batch_size = 1;
+
     // Initialize ONNX Runtime
     Ort::Env env;
 
@@ -38,9 +40,10 @@ int main()
     // Create input tensor objects (This might differ based on your model)
 
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
-    std::array<float_t, 3 * 224 * 224> input_image_{};
-    std::array<int64_t, 4> input_shape_{ 1, 3, 224, 224 };
-    Ort::Value input_tensor = Ort::Value::CreateTensor<float_t>(memory_info, input_image_.data(), input_image_.size(),
+    //std::array<float_t, batch_size * 3 * 224 * 224> input_image_{};
+    std::unique_ptr<float_t[]> input_image_(new float_t[batch_size * 3 * 224 * 224]);
+    std::array<int64_t, 4> input_shape_{ batch_size, 3, 224, 224 };
+    Ort::Value input_tensor = Ort::Value::CreateTensor<float_t>(memory_info, input_image_.get(), batch_size * 3 * 224 * 224,
         input_shape_.data(), input_shape_.size());
 
     // Run model

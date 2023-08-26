@@ -25,9 +25,10 @@ Infer 20 times, and take the average of the last 10 times.
 | PC | batch_size 1 | batch_size 4 |
 |:------:|:----:|:------:|
 | PyTorch cpu | 172 ms | 514 ms |
-| PyTorch cuda | 11 ms | 26 ms |
-| Python onnxruntime cpu | 40 ms | 47 ms |
-| Python onnxruntime cuda | 23 ms | 19 ms |
+| PyTorch cuda | 11 ms | 23 ms |
+| Python onnxruntime cpu | 12 ms | 30 ms |
+| Python onnxruntime cuda | 8 ms | 18 ms |
+| C++ onnxruntime cpu | 10 ms | 34 ms |
 
 | MacBook | batch_size 1 | batch_size 4 |
 |:------:|:----:|:------:|
