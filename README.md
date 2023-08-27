@@ -25,7 +25,7 @@ This tool tests ONNX model inference speed using different deployment methods.
 
 - MacBook Pro 16-inch, 2021, A2485
 
-- CPU: Apple M1 Pro
+- CPU: Apple M1 Pro, 8P + 2E, 16-core GPU,16-core Neural Engine
 
 - OS: Ventura 13.5 (22G74)
 
