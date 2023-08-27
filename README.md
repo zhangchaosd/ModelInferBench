@@ -100,3 +100,4 @@ OpenVINO:
 
 Just install one of the following NuGet Package `Microsoft.ML.OnnxRuntime.DirectML`, `Microsoft.ML.OnnxRuntime`, `Microsoft.ML.OnnxRuntime.Gpu`
 
+After add onnx to project, you have to change the file property to content.

@@ -9,6 +9,7 @@ namespace OnnxRuntimeCSharpExample
     {
         enum Device
         {
+            // You May need to change here
             Onnxruntime_cpu,
             Onnxruntime_gpu,
             DirectML_A770_16G,  // Microsoft.ML.OnnxRuntime.DirectML
@@ -25,6 +26,7 @@ namespace OnnxRuntimeCSharpExample
 
 
             var options = new SessionOptions();
+            // Notice: You May need to change here
             // Notice: You need to change NuGet packages first.
             switch (device)
             {
@@ -64,7 +66,7 @@ namespace OnnxRuntimeCSharpExample
                 }
             }
             total_time /= 10;
-            Console.WriteLine($"Average elapsed time: {total_time} ms");
+            Console.WriteLine($"{device}: Average elapsed time: {total_time} ms");
             Console.ReadLine();
         }
     }

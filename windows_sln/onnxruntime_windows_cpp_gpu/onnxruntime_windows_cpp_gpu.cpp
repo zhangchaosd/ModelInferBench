@@ -25,30 +25,26 @@ private:
 
 int main()
 {
-    std::cout << "Hello World!\n";
-
     auto providers = Ort::GetAvailableProviders();
     for (auto provider : providers) {
         std::cout << provider << std::endl;
     }
 
-    const int64_t batch_size = 128;
+    const int64_t batch_size = 1;
     std::cout << "batch_size:" << batch_size << std::endl;
 
     // Initialize ONNX Runtime
     Ort::Env env;
 
     Ort::SessionOptions session_options;
-    //OrtCUDAProviderOptions options;
+    //OrtCUDAProviderOptions options;  Here is the only difference from cpu version
     session_options.AppendExecutionProvider_CUDA(OrtCUDAProviderOptions{});
 
     // Initialize session
     Ort::Session onnx_session(env, L"../../model.onnx", session_options);
 
     // Create input tensor objects (This might differ based on your model)
-
     auto memory_info = Ort::MemoryInfo::CreateCpu(OrtDeviceAllocator, OrtMemTypeCPU);
-    //std::array<float_t, batch_size * 3 * 224 * 224> input_image_{};
     std::unique_ptr<float_t[]> input_image_(new float_t[batch_size * 3 * 224 * 224]);
     std::array<int64_t, 4> input_shape_{ batch_size, 3, 224, 224 };
     Ort::Value input_tensor = Ort::Value::CreateTensor<float_t>(memory_info, input_image_.get(), batch_size * 3 * 224 * 224,
@@ -69,8 +65,8 @@ int main()
             total_time += elapsed_time;
         }
     }
-    printf("Running done\n");
-    std::cout << "Average elapsed time: " << total_time / 10 << " ms" << std::endl;
+    std::cout << "Running done" << std::endl;
+    std::cout << "ONNX Runtime GPU: Average elapsed time: " << total_time / 10 << " ms" << std::endl;
     int a;
     std::cin >> a;
 
