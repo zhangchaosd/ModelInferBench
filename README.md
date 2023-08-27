@@ -90,7 +90,7 @@ python test_python.py
 
 If you only have CUDA 12.2 installed, you might experience crashes when trying to use the GPU. To avoid this, install CUDA 11.8 to ensure all necessary DLLs are available.
 
-#### onnxruntime:
+#### ONNX Runtime:
 
 1 Download the ONNX Runtime release from https://github.com/microsoft/onnxruntime/releases/tag/v1.15.1
 
