@@ -1,38 +1,41 @@
 # ModelInferBench
-This is a tool for testing onnx model inference speed in different deploy methods.
 
+This tool tests ONNX model inference speed using different deployment methods.
 
 ## My Results
 
-Notice: My PC has two graphics cards: GTX1070Ti and Intel A770. My display cable is on A770. In DirectML, device 0 is A770 and device 1 is GTX1070Ti.
+**Note**: My PC has two graphics cards: GTX1070Ti and Intel A770. My display cable is connected to the A770. In DirectML, device 0 corresponds to A770 and device 1 corresponds to GTX1070Ti.
 
-My PC:
+### System Configurations
+#### My PC:
 
 - CPU: i9-13900
 
-- MEM: 32G DDR4 3000
+- Memory: 32GB DDR4 3000 MHz
 
 - GPUs: GTX1070ti + A770 16G
 
-- System: Windows 11 Pro 22H2 22621.2215
+- OS: Windows 11 Pro 22H2 22621.2215
 
-- Python 3.11.4
+- Python Version: 3.11.4
 
-My Mac:
+#### My Mac:
 
 - MacBook Pro 16-inch, 2021, A2485
 
-- Apple M1 Pro
+- CPU: Apple M1 Pro
 
-- Ventura 13.5 (22G74)
+- OS: Ventura 13.5 (22G74)
 
+### Test Parameters
 
-Test model: torchvision.models.efficientnet_b4
+- **Test Model**: `torchvision.models.efficientnet_b4`
 
-Input size: batch_size, 3, 224, 224
+- **Input Size**: `batch_size, 3, 224, 224`
 
-Infer 20 times, and take the average of the last 10 times.
-(ms)
+- **Inference Runs**: 20 times (the average of the last 10 runs is taken)
+
+- **Unit**: ms
 
 | PC/batch_size | 1 | 4 | 128|
 |:------|:----:|:------:|:-:|
@@ -61,9 +64,11 @@ Infer 20 times, and take the average of the last 10 times.
 
 ## Instructions
 
-Export a ONNX file using the python file or use your own ONNX model. According the model, you may also need to change the file path, input shape, input name or the dtype in the code.
+To test inference speed, either export an ONNX file using the provided Python script or use your own ONNX model. Depending on the model, you may also need to update the file path, input shape, input name, or data type in the code.
 
 ### Python
+
+Run the following command to test:
 
 ```
 python test_python.py
@@ -73,24 +78,24 @@ python test_python.py
 ### Windows/C++
 #### Attention
 
-If you only install cuda12.2, you may can't use gpu(crash). You need to install cuda 11.8, so there is some necessary dlls.
+If you only have CUDA 12.2 installed, you might experience crashes when trying to use the GPU. To avoid this, install CUDA 11.8 to ensure all necessary DLLs are available.
 
 #### onnxruntime:
 
-1 Download onnxruntime release from https://github.com/microsoft/onnxruntime/releases/tag/v1.15.1
+1 Download the ONNX Runtime release from https://github.com/microsoft/onnxruntime/releases/tag/v1.15.1
 
-2 Download `onnxruntime-win-x64-1.15.1.zip` or `onnxruntime-win-x64-gpu-1.15.1.zip`
+2 Download either `onnxruntime-win-x64-1.15.1.zip` or `onnxruntime-win-x64-gpu-1.15.1.zip`
 
-3 Unzip and put them in `windows_sln\onnxruntime_windows_cpp_cpu` or `windows_sln\onnxruntime_windows_cpp_gpu`
+3 Unzip the downloaded file and place its contents in either `windows_sln\onnxruntime_windows_cpp_cpu` or `windows_sln\onnxruntime_windows_cpp_gpu`
 
-3 Depends on the version you download, you may need to change following project settings: 
+3 Depending  on the version you downloaded, you may need to update the following project settings: 
 - Properties -> C/C++ -> General -> Additional Include Directories
 - Properties -> Linker -> Input -> Additional Dependencies
 - Build Events -> Post-Build Event -> Command Line
 
 #### OpenVINO:
 
-1 Download from https://www.intel.cn/content/www/cn/zh/developer/tools/openvino-toolkit/overview.html and unzip.
+1 Download OpenVINO from https://www.intel.cn/content/www/cn/zh/developer/tools/openvino-toolkit/overview.html and unzip it.
 
 2 Create a new folder named `openvino` in `windows_sln\openvino_windows_cpp\`.
 
@@ -98,10 +103,10 @@ If you only install cuda12.2, you may can't use gpu(crash). You need to install 
 
 4 Build project.
 
-5 Copy `openvino_toolkit\runtime\bin\intel64\Release\*.dll` and `openvino_toolkit\runtime\3rdparty\tbb\bin\*.dll` to the output path `windows_sln\x64\Release\`.
+5 Copy all `.dll` files from `openvino_toolkit\runtime\bin\intel64\Release\` and `openvino_toolkit\runtime\3rdparty\tbb\bin\` to the output directory `windows_sln\x64\Release\`.
 
 ### Windows/C#
 
-Install one of the following NuGet Package `Microsoft.ML.OnnxRuntime.DirectML`, `Microsoft.ML.OnnxRuntime`, `Microsoft.ML.OnnxRuntime.Gpu`
+Install one of the following NuGet Packages `Microsoft.ML.OnnxRuntime.DirectML`, `Microsoft.ML.OnnxRuntime`, `Microsoft.ML.OnnxRuntime.Gpu`.
 
-After add onnx to project, you have to change the file's property to content.
+After adding the ONNX file to the project, change its properties to "Content".
