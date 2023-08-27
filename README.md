@@ -13,7 +13,7 @@ This tool tests ONNX model inference speed using different deployment methods.
 
 - Memory: 32GB DDR4 3000 MHz
 
-- GPUs: GTX1070ti + A770 16G
+- GPUs: GTX1070Ti + A770 16G
 
 - OS: Windows 11 Pro 22H2 22621.2215
 
@@ -48,17 +48,17 @@ This tool tests ONNX model inference speed using different deployment methods.
 | PC/batch_size | 1 | 4 | 128|
 |:------|:----:|:------:|:-:|
 | Python PyTorch CPU | 172 ms | 514 ms | * |
-| Python onnxruntime CPU | 12 ms | 30 ms | * |
+| Python ONNX Runtime CPU | 12 ms | 30 ms | * |
 | Python OpenVINO CPU | 11 ms | 29 ms | * |
-| C++ onnxruntime CPU | 10 ms | 34 ms | 3800 ms |
+| C++ ONNX Runtime CPU | 10 ms | 34 ms | 3800 ms |
 | C++ OpenVINO CPU | 10 ms | 26 ms | * |
-| C# onnxruntime CPU | 170 ms | 473 ms | 3876 ms |
+| C# ONNX Runtime CPU | 170 ms | 473 ms | 3876 ms |
 |||||
 | Python PyTorch 1070Ti | 11 ms | 23 ms | * |
-| Python onnxruntime 1070Ti | 7 ms | 18 ms | 430 ms |
+| Python ONNX Runtime 1070Ti | 7 ms | 18 ms | 430 ms |
 | Python OpenVINO 1070Ti | 49 ms | * | * |
-| C++ onnxruntime 1070Ti | 7 ms | 17 ms | 424 ms |
-| C# onnxruntime 1070Ti | 7 ms | 17 ms | 427 ms|
+| C++ ONNX Runtime 1070Ti | 7 ms | 17 ms | 424 ms |
+| C# ONNX Runtime 1070Ti | 7 ms | 17 ms | 427 ms|
 | C# DirectML 1070Ti | 12 ms | 31 ms | 812 ms|
 |||||
 | Python OpenVINO A770 | 10 ms | 15 ms | 919 ms |
@@ -67,9 +67,9 @@ This tool tests ONNX model inference speed using different deployment methods.
 
 | MacBook/batch_size | 1 | 4 |
 |:------|:----:|:------:|
-| Python PyTorch cpu | 887 ms | 1207 ms |
+| Python PyTorch CPU | 887 ms | 1207 ms |
 | Python PyTorch mps | 37 ms | 39 ms |
-| Python onnxruntime cpu | 59 ms | 208 ms |
+| Python ONNX Runtime CPU | 59 ms | 208 ms |
 
 
 ## Instructions

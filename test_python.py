@@ -43,7 +43,7 @@ def test_Pytorch(model):
     if torch.backends.mps.is_available():
         devices.append("mps")
     for device in devices:
-        print(f"OpenVINO {device}...")
+        print(f"PyTorch {device}...")
         model.eval().to(device)
         input = torch.randn(*input_size).to(device).to(torch_type)
 
@@ -69,7 +69,7 @@ def test_ONNXRuntime():
         available_providers.remove("CPUExecutionProvider")
     print(f"ONNX Runtime available_providers: {available_providers}")
     for provider in available_providers:
-        print(f"OpenVINO {provider}...")
+        print(f"ONNX Runtime {provider}...")
         sess = ort.InferenceSession(onnx_path, providers=[provider])
         input = np.random.rand(*input_size).astype(np_type)
         total_time = 0.0
