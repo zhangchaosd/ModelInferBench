@@ -7,6 +7,7 @@ import torch
 import torchvision
 from openvino.runtime import Core
 
+skip_cpu = True
 onnx_path = "model.onnx"
 batch_size = 1
 input_size = (batch_size, 3, 224, 224)
@@ -36,7 +37,7 @@ results = []
 
 
 def test_Pytorch(model):
-    devices = ["cpu"]
+    devices = [] if skip_cpu else ["cpu"]
     if torch.cuda.is_available():
         devices.append("cuda")
     if torch.backends.mps.is_available():
@@ -56,13 +57,15 @@ def test_Pytorch(model):
             if i >= epoch - 10:
                 total_time += elapsed_time
         total_time /= 10
-        result = f"Device: {device}. Average running time in last 10 epochs: {total_time:.0f} ms"
+        result = f"Pytorch: {device}. Average running time in last 10 epochs: {total_time:.0f} ms"
         print(result)
         results.append(result)
 
 
 def test_ONNXRuntime():
     available_providers = ort.get_available_providers()
+    if skip_cpu:
+        available_providers.remove("CPUExecutionProvider")
     print(f"ONNX Runtime available_providers: {available_providers}")
     for provider in available_providers:
         sess = ort.InferenceSession(onnx_path, providers=[provider])
@@ -90,6 +93,8 @@ def test_onnxruntime_directml():
 
 def test_OpenVINO():
     devices = Core().available_devices
+    if skip_cpu:
+        devices.remove("CPU")
     print(f"OpenVINO available devices: {devices}")
     for device_name in devices:
         core = Core()

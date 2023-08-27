@@ -39,7 +39,7 @@ Infer 20 times, and take the average of the last 10 times.
 | Python PyTorch cpu | 172 ms | 514 ms | * |
 | Python PyTorch cuda | 11 ms | 23 ms | * |
 | Python onnxruntime cpu | 12 ms | 30 ms | * |
-| Python onnxruntime cuda | 8 ms | 18 ms | 430 ms |
+| Python onnxruntime cuda | 7 ms | 18 ms | 430 ms |
 | C++ onnxruntime cpu | 10 ms | 34 ms | 3800 ms |
 | C++ onnxruntime cuda | 7 ms | 17 ms | 424 ms |
 | C# onnxruntime cpu | 170 ms | 473 ms | 3876 ms |
