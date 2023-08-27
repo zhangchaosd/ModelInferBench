@@ -9,6 +9,9 @@ import torchvision
 onnx_path = "model.onnx"
 batch_size = 1
 input_size = (batch_size, 3, 224, 224)
+np_type = np.float32
+torch_type = torch.float32
+
 # model = torchvision.models.efficientnet_v2_l()
 model = torchvision.models.efficientnet_b4()
 
@@ -33,7 +36,7 @@ results = []
 
 def test(model, device):
     model.eval().to(device)
-    input = torch.randn(*input_size).to(device)
+    input = torch.randn(*input_size).to(device).to(torch_type)
 
     total_time = 0.0
     epoch = 20
@@ -55,7 +58,7 @@ def test(model, device):
 
 def test_onnxruntime(provider):
     sess = ort.InferenceSession(onnx_path, providers=[provider])
-    input = np.random.rand(*input_size).astype(np.float32)
+    input = np.random.rand(*input_size).astype(np_type)
     total_time = 0.0
     epoch = 20
     for i in range(epoch):
@@ -81,6 +84,7 @@ def test_OpenVINO():
     from openvino.runtime import Core, Layout, Type
     print(Core().available_devices)
     device_name = "CPU"  # change here
+    # device_name = "GPU"  # change here
     # device_name = "GPU.0"  # A770
     # device_name = "GPU.1"  # 1070Ti
 
@@ -101,7 +105,7 @@ def test_OpenVINO():
     # Step 4. Apply preprocessing
     # ppp = PrePostProcessor(model)
 
-    input_tensor = np.random.rand(*input_size).astype(np.float32)
+    input_tensor = np.random.rand(*input_size).astype(np_type)
 
     # 1) Set input tensor information:
     # - input() provides information about a single model input
