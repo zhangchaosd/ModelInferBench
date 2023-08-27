@@ -97,7 +97,6 @@ def test_OpenVINO():
     devices = Core().available_devices
     if skip_cpu:
         devices.remove("CPU")
-        devices.remove("GPU.1")
     print(f"OpenVINO available devices: {devices}")
     for device_name in devices:
         print(f"OpenVINO {device_name}...")
@@ -141,5 +140,5 @@ test_Pytorch(model)
 test_ONNXRuntime()
 test_OpenVINO()
 
-print("\nResults:")
+print(f"\nResults (batch_size: {batch_size}):")
 list(map(print, results))
