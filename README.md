@@ -120,3 +120,5 @@ If you only have CUDA 12.2 installed, you might experience crashes when trying t
 Install one of the following NuGet Packages `Microsoft.ML.OnnxRuntime.DirectML`, `Microsoft.ML.OnnxRuntime`, `Microsoft.ML.OnnxRuntime.Gpu`.
 
 After adding the ONNX file to the project, change its properties to "Content".
+
+![PC](/pc.jpg "PC")
