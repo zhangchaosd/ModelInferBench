@@ -41,20 +41,22 @@ This tool tests ONNX model inference speed using different deployment methods.
 
 | PC/batch_size | 1 | 4 | 128|
 |:------|:----:|:------:|:-:|
-| Python PyTorch cpu | 172 ms | 514 ms | * |
-| Python PyTorch cuda | 11 ms | 23 ms | * |
-| Python onnxruntime cpu | 12 ms | 30 ms | * |
-| Python onnxruntime cuda | 7 ms | 18 ms | 430 ms |
-| C++ onnxruntime cpu | 10 ms | 34 ms | 3800 ms |
-| C++ onnxruntime cuda | 7 ms | 17 ms | 424 ms |
-| C# onnxruntime cpu | 170 ms | 473 ms | 3876 ms |
-| C# onnxruntime cuda | 7 ms | 17 ms | 427 ms|
-| C# DirectML A770 | 9 ms | 19 ms | 485 ms|
-| C# DirectML 1070Ti | 12 ms | 31 ms | 812 ms|
-| Python OpenVINO CPU | 11 ms | 29 ms | * |  |
-| Python OpenVINO A770 | 10 ms | 15 ms | 919 ms |
-| Python OpenVINO 1070Ti | 49 ms | * | * |
+| Python PyTorch CPU | 172 ms | 514 ms | * |
+| Python onnxruntime CPU | 12 ms | 30 ms | * |
+| C++ onnxruntime CPU | 10 ms | 34 ms | 3800 ms |
+| C# onnxruntime CPU | 170 ms | 473 ms | 3876 ms |
+| Python OpenVINO CPU | 11 ms | 29 ms | * |
 | C++ OpenVINO CPU | 10 ms | 26 ms | * |
+|||||
+| Python PyTorch CUDA | 11 ms | 23 ms | * |
+| Python onnxruntime CUDA | 7 ms | 18 ms | 430 ms |
+| C++ onnxruntime CUDA | 7 ms | 17 ms | 424 ms |
+| C# onnxruntime CUDA | 7 ms | 17 ms | 427 ms|
+| C# DirectML 1070Ti | 12 ms | 31 ms | 812 ms|
+| Python OpenVINO 1070Ti | 49 ms | * | * |
+|||||
+| C# DirectML A770 | 9 ms | 19 ms | 485 ms|
+| Python OpenVINO A770 | 10 ms | 15 ms | 919 ms |
 | C++ OpenVINO A770 | 7 ms | 10 ms | 870 ms |
 
 | MacBook/batch_size | 1 | 4 |
