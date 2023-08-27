@@ -43,6 +43,7 @@ def test_Pytorch(model):
     if torch.backends.mps.is_available():
         devices.append("mps")
     for device in devices:
+        print(f"OpenVINO {device}...")
         model.eval().to(device)
         input = torch.randn(*input_size).to(device).to(torch_type)
 
@@ -53,7 +54,7 @@ def test_Pytorch(model):
             output = model(input)
             end_time = time.time()
             elapsed_time = (end_time - start_time) * 1000
-            print(f"Running time: {elapsed_time:.0f} ms")
+            print(f"Pytorch: {device}. Running time: {elapsed_time:.0f} ms")
             if i >= epoch - 10:
                 total_time += elapsed_time
         total_time /= 10
@@ -68,6 +69,7 @@ def test_ONNXRuntime():
         available_providers.remove("CPUExecutionProvider")
     print(f"ONNX Runtime available_providers: {available_providers}")
     for provider in available_providers:
+        print(f"OpenVINO {provider}...")
         sess = ort.InferenceSession(onnx_path, providers=[provider])
         input = np.random.rand(*input_size).astype(np_type)
         total_time = 0.0
@@ -77,7 +79,7 @@ def test_ONNXRuntime():
             output = sess.run(["output"], {"input": input})[0]
             end_time = time.time()
             elapsed_time = (end_time - start_time) * 1000
-            print(f"Running time: {elapsed_time:.0f} ms")
+            print(f"Onnxruntime: {provider}. Running time: {elapsed_time:.0f} ms")
             if i >= epoch - 10:
                 total_time += elapsed_time
         total_time /= 10
@@ -95,8 +97,10 @@ def test_OpenVINO():
     devices = Core().available_devices
     if skip_cpu:
         devices.remove("CPU")
+        devices.remove("GPU.1")
     print(f"OpenVINO available devices: {devices}")
     for device_name in devices:
+        print(f"OpenVINO {device_name}...")
         core = Core()
         # Read a model
         # (.xml and .bin files) or (.onnx file)
@@ -120,7 +124,7 @@ def test_OpenVINO():
             _ = compiled_model.infer_new_request({0: input_tensor})
             end_time = time.time()
             elapsed_time = (end_time - start_time) * 1000
-            print(f"OpenVINI {device_name} {i} Running time: {elapsed_time:.0f} ms")
+            print(f"OpenVINI {device_name}. Running time: {elapsed_time:.0f} ms")
             if i >= epoch - 10:
                 total_time += elapsed_time
         total_time /= 10
@@ -137,5 +141,5 @@ test_Pytorch(model)
 test_ONNXRuntime()
 test_OpenVINO()
 
-print("Results:")
+print("\nResults:")
 list(map(print, results))

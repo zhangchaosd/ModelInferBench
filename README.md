@@ -54,11 +54,11 @@ This tool tests ONNX model inference speed using different deployment methods.
 | C++ OpenVINO CPU | 10 ms | 26 ms | * |
 | C# onnxruntime CPU | 170 ms | 473 ms | 3876 ms |
 |||||
-| Python PyTorch CUDA | 11 ms | 23 ms | * |
-| Python onnxruntime CUDA | 7 ms | 18 ms | 430 ms |
+| Python PyTorch 1070Ti | 11 ms | 23 ms | * |
+| Python onnxruntime 1070Ti | 7 ms | 18 ms | 430 ms |
 | Python OpenVINO 1070Ti | 49 ms | * | * |
-| C++ onnxruntime CUDA | 7 ms | 17 ms | 424 ms |
-| C# onnxruntime CUDA | 7 ms | 17 ms | 427 ms|
+| C++ onnxruntime 1070Ti | 7 ms | 17 ms | 424 ms |
+| C# onnxruntime 1070Ti | 7 ms | 17 ms | 427 ms|
 | C# DirectML 1070Ti | 12 ms | 31 ms | 812 ms|
 |||||
 | Python OpenVINO A770 | 10 ms | 15 ms | 919 ms |
