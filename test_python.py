@@ -31,7 +31,9 @@ def export_onnx(model):
     model = onnx.load(onnx_path)
     onnx.checker.check_model(model)
 
+
 results = []
+
 
 def test_Pytorch(model):
     devices = ["cpu"]
@@ -54,9 +56,7 @@ def test_Pytorch(model):
             if i >= epoch - 10:
                 total_time += elapsed_time
         total_time /= 10
-        result = (
-            f"Device: {device}. Average running time in last 10 epochs: {total_time:.0f} ms"
-        )
+        result = f"Device: {device}. Average running time in last 10 epochs: {total_time:.0f} ms"
         print(result)
         results.append(result)
 
@@ -82,9 +82,11 @@ def test_ONNXRuntime():
         print(result)
         results.append(result)
 
+
 def test_onnxruntime_directml():
     # pip install onnxruntime-directml
     pass
+
 
 def test_OpenVINO():
     devices = Core().available_devices
@@ -96,11 +98,11 @@ def test_OpenVINO():
         model = core.read_model(onnx_path)
 
         if len(model.inputs) != 1:
-            print('Sample supports only single input topologies')
+            print("Sample supports only single input topologies")
             return
 
         if len(model.outputs) != 1:
-            print('Sample supports only single output topologies')
+            print("Sample supports only single output topologies")
             return
 
         input_tensor = np.random.rand(*input_size).astype(np_type)
@@ -121,7 +123,7 @@ def test_OpenVINO():
         print(result)
         results.append(result)
         # This sample is an API example, for any performance measurements please use the dedicated benchmark_app tool
-        #https://docs.openvino.ai/2023.0/openvino_inference_engine_tools_benchmark_tool_README.html
+        # https://docs.openvino.ai/2023.0/openvino_inference_engine_tools_benchmark_tool_README.html
 
 
 export_onnx(model)
