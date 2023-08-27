@@ -79,11 +79,11 @@ def test_ONNXRuntime():
             output = sess.run(["output"], {"input": input})[0]
             end_time = time.time()
             elapsed_time = (end_time - start_time) * 1000
-            print(f"Onnxruntime: {provider}. Running time: {elapsed_time:.0f} ms")
+            print(f"ONNX Runtime: {provider}. Running time: {elapsed_time:.0f} ms")
             if i >= epoch - 10:
                 total_time += elapsed_time
         total_time /= 10
-        result = f"Onnxruntime: {provider}. Average running time in last 10 epochs: {total_time:.0f} ms"
+        result = f"ONNX Runtime: {provider}. Average running time in last 10 epochs: {total_time:.0f} ms"
         print(result)
         results.append(result)
 
