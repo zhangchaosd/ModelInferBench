@@ -61,6 +61,8 @@ Infer 20 times, and take the average of the last 10 times.
 
 ## Instructions
 
+Export a ONNX file using the python file or use your own ONNX model. According the model, you may also need to change the file path, input shape, input name or the dtype in the code.
+
 ### Python
 
 ```
