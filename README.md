@@ -21,6 +21,8 @@ This tool tests ONNX model inference speed using different deployment methods.
 
 - Python Version: 3.11.4
 
+- PyTorch Version: 2.0.1+cu118
+
 #### My Mac:
 
 - MacBook Pro 16-inch, 2021, A2485
@@ -28,6 +30,10 @@ This tool tests ONNX model inference speed using different deployment methods.
 - CPU: Apple M1 Pro, 8P + 2E, 16-core GPU,16-core Neural Engine
 
 - OS: Ventura 13.5 (22G74)
+
+- Python Version: 3.9.16
+
+- PyTorch Version: 2.0.0
 
 ### Test Parameters
 
