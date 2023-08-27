@@ -17,6 +17,8 @@ This tool tests ONNX model inference speed using different deployment methods.
 
 - OS: Windows 11 Pro 22H2 22621.2215
 
+- GPU Driver version: 536.99 & 31.0.101.4669
+
 - Python Version: 3.11.4
 
 #### My Mac:
