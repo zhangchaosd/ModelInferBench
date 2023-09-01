@@ -78,10 +78,16 @@ To test inference speed, either export an ONNX file using the provided Python sc
 
 ### Python
 
-Run the following command to test:
+Run the following command to export a onnx model:
 
 ```
-python test_python.py
+python export_onnx.py
+```
+
+Run the following command to test the python ONNX Runtime:
+
+```
+python test_python.py model.onnx
 ```
 
 
