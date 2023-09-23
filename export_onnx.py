@@ -67,7 +67,7 @@ def test_Pytorch(model):
         results.append(result)
 
 
-onnx_path = export_onnx(model)
+export_onnx(model)
 export_openvino_ir(onnx_path)
 
 test_Pytorch(model)

@@ -1,11 +1,12 @@
+import os
 import sys
 import time
 
 import numpy as np
 import onnxruntime as ort
-from openvino.runtime import Core
+import openvino as ov
 
-skip_cpu = True
+skip_cpu = False
 # onnx_path = "model.onnx"
 onnx_path = sys.argv[1]
 batch_size = 1
@@ -31,6 +32,7 @@ results = []
 
 def test_ONNXRuntime():
     available_providers = ort.get_available_providers()
+    available_providers.remove("TensorrtExecutionProvider")
     if skip_cpu:
         available_providers.remove("CPUExecutionProvider")
     print(f"ONNX Runtime available_providers: {available_providers}")
@@ -38,18 +40,16 @@ def test_ONNXRuntime():
         print(f"ONNX Runtime {provider}...")
         sess = ort.InferenceSession(onnx_path, providers=[provider])
         input = np.random.rand(*input_shape).astype(np_type)
-        total_time = 0.0
+        times = []
         epoch = 20
-        for i in range(epoch):
+        for _ in range(epoch):
             start_time = time.time()
             output = sess.run(["output"], {"input": input})[0]
             end_time = time.time()
             elapsed_time = (end_time - start_time) * 1000
             print(f"ONNX Runtime: {provider}. Running time: {elapsed_time:.0f} ms")
-            if i >= epoch - 10:
-                total_time += elapsed_time
-        total_time /= 10
-        result = f"ONNX Runtime: {provider}. Average running time in last 10 epochs: {total_time:.0f} ms"
+            times.append(elapsed_time)
+        result = f"ONNX Runtime: {provider}. Average running time in last 10 epochs: {np.mean(times[-10:]):.0f} ms"
         print(result)
         results.append(result)
 
@@ -60,44 +60,45 @@ def test_onnxruntime_directml():
 
 
 def test_OpenVINO():
-    devices = Core().available_devices
+    # initialize OpenVINO
+    core = ov.Core()
+
+    # print available devices
+    devices = core.available_devices
+    for device in devices:
+        device_name = core.get_property(device, "FULL_DEVICE_NAME")
+        print(f"{device}: {device_name}")
+
     if skip_cpu:
         devices.remove("CPU")
-    print(f"OpenVINO available devices: {devices}")
-    for device_name in devices:
-        print(f"OpenVINO {device_name}...")
-        core = Core()
-        # Read a model
-        # (.xml and .bin files) or (.onnx file)
-        model = core.read_model(onnx_path)
 
-        if len(model.inputs) != 1:
-            print("Sample supports only single input topologies")
-            return
+    for device in devices:
+        print(f"OpenVINO {device} {core.get_property(device,'FULL_DEVICE_NAME')}...")
 
-        if len(model.outputs) != 1:
-            print("Sample supports only single output topologies")
-            return
-
+        # Construct input
         input_tensor = np.random.rand(*input_shape).astype(np_type)
-        compiled_model = core.compile_model(model, device_name)
+        c_input_image = np.ascontiguousarray(input_tensor, dtype=np_type)
+        input_tensor = ov.Tensor(c_input_image, shared_memory=True)
 
-        total_time = 0.0
+        config = {"PERFORMANCE_HINT": "LATENCY"}
+        if device == "CPU":
+            config["INFERENCE_NUM_THREADS"] = os.cpu_count()
+        ov_model = ov.convert_model(onnx_path)
+        compiled_model = core.compile_model(ov_model, device, config=config)
+
+        times = []
         epoch = 20
-        for i in range(epoch):
+        for _ in range(epoch):
             start_time = time.time()
-            _ = compiled_model.infer_new_request({0: input_tensor})
+            result = compiled_model(input_tensor)[compiled_model.output(0)][0]
             end_time = time.time()
             elapsed_time = (end_time - start_time) * 1000
-            print(f"OpenVINO {device_name}. Running time: {elapsed_time:.0f} ms")
-            if i >= epoch - 10:
-                total_time += elapsed_time
-        total_time /= 10
-        result = f"OpenVINO: {device_name}. Average running time in last 10 epochs: {total_time:.0f} ms"
+            print(f"OpenVINO {device}. Running time: {elapsed_time:.0f} ms")
+            times.append(elapsed_time)
+        result = f"OpenVINO: {device}. Average running time in last 10 epochs: {np.mean(times[-10:]):.0f} ms"
         print(result)
         results.append(result)
-        # This sample is an API example, for any performance measurements please use the dedicated benchmark_app tool
-        # https://docs.openvino.ai/2023.0/openvino_inference_engine_tools_benchmark_tool_README.html
+        del compiled_model
 
 
 test_ONNXRuntime()
