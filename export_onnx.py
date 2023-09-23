@@ -1,17 +1,19 @@
 import time
 
+from pathlib import Path
+
 import onnx
+import openvino as ov
 import torch
 import torchvision
 
 skip_cpu = True
-onnx_path = "model.onnx"
+onnx_path = Path("model.onnx")
 batch_size = 1
 input_size = (batch_size, 3, 224, 224)
 
 # model = torchvision.models.efficientnet_v2_l()
 model = torchvision.models.efficientnet_b4()
-
 
 def export_onnx(model):
     model.eval().to("cpu")
@@ -26,10 +28,16 @@ def export_onnx(model):
     )
     model = onnx.load(onnx_path)
     onnx.checker.check_model(model)
+    print(f"ONNX model saved: {onnx_path}")
+    return onnx_path
 
+def export_openvino_ir(onnx_path):
+    ov_model = ov.convert_model(onnx_path)
+    ov_path = onnx_path.with_suffix(".xml")
+    ov.save_model(ov_model, ov_path)
+    print(f"OpenVINO IR model saved: {ov_path}")
 
 results = []
-
 
 def test_Pytorch(model):
     devices = [] if skip_cpu else ["cpu"]
@@ -59,7 +67,8 @@ def test_Pytorch(model):
         results.append(result)
 
 
-export_onnx(model)
+onnx_path = export_onnx(model)
+export_openvino_ir(onnx_path)
 
 test_Pytorch(model)
 print(f"\nResults (batch_size: {batch_size}):")

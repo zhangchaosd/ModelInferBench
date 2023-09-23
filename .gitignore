@@ -1,4 +1,6 @@
 *.onnx
+*.bin
+*.xml
 __pycache__
 
 .vs
